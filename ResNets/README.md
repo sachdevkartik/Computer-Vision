@@ -1,14 +1,14 @@
 # ResNets
 Repository consisting of the following implementations:
 1. [Comparing Conventional CNN & ResNet](#comparing-conventional-cnn-&-resnet)
+    - [Network details](#network-details)
+    - [Run code](#run-code)
+    - [Results](#results)
+    
+2. [Achieving 85% Aacuracy with ResNets](#testing-resnet)
     - [Network details](#network-details-1)
     - [Run code](#run-code-1)
     - [Results](#results-1)
-    
-2. [Achieving 85% Aacuracy with ResNets](#testing-resnet)
-    - [Network details](#network-details-2)
-    - [Run code](#run-code-2)
-    - [Results](#results-2)
     
 ## Comparing Conventional CNN & ResNet
 An attempt to compare CNN & ResNet using [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) for a classification tasks constiting of 10 classes. <br>
