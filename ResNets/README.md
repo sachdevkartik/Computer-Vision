@@ -1,6 +1,6 @@
 # ResNets
 Repository consisting of the following implementations:
-1. [Comparing Conventional CNN & ResNet](#comparing-conventional-cnn-&-resnet)
+1. [Comparing Conventional CNN & ResNet](#comparing-conventional-cnn-and-resnet)
     - [Network details](#network-details)
     - [Run code](#run-code)
     - [Results](#results)
@@ -10,7 +10,7 @@ Repository consisting of the following implementations:
     - [Run code](#run-code-1)
     - [Results](#results-1)
     
-## Comparing Conventional CNN & ResNet
+## Comparing Conventional CNN and ResNet
 An attempt to compare CNN & ResNet using [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) for a classification tasks constiting of 10 classes. <br>
 The following hyperparameters/functions were used:
 
@@ -208,14 +208,12 @@ resnets.py
 ### Results
 Trained ResNets achieved an accuracy of 85.0%. <br> 
 Total trainable parameters = 485,952 <br>
+
 - Training from starch:
-
-
 ![Resnet_80](ResNet_80 acc.png)
 
 
 - Using a saved model and continuing training:
-
 ![Resnet acc 85_graph.png](Resnet acc 85_graph.png)
 
 ```bash
