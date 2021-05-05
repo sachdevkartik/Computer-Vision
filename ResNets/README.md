@@ -5,7 +5,7 @@ Repository consisting of the following implementations:
     - [Run code](#run-code)
     - [Results](#results)
     
-2. [Achieving 85% Aacuracy with ResNets](#testing-resnet)
+2. [Achieving 85% Acuracy with ResNets](#achieving-85%-aacuracy-with-resnets) <!--(#testing-resnet)-->
     - [Network details](#network-details-1)
     - [Run code](#run-code-1)
     - [Results](#results-1)
@@ -108,6 +108,7 @@ After 25 epochs :
 
 
 ### Testing ResNet
+### Achieving 85% Aacuracy with ResNets
 **Goal** is to achieve 85% Test Accuracy with parameters under 500,000. 
 
 The following **hyperparameters/functions** were used:
