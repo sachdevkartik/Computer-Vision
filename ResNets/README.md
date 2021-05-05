@@ -210,11 +210,11 @@ Trained ResNets achieved an accuracy of 85.0%. <br>
 Total trainable parameters = 485,952 <br>
 
 - Training from starch:
-![Resnet_80](ResNet_80 acc.png)
+ ![Resnet_80](ResNet_80 acc.png)
 
 
 - Using a saved model and continuing training:
-![Resnet acc 85_graph.png](Resnet acc 85_graph.png)
+ ![Resnet acc 85_graph.png](Resnet acc 85_graph.png)
 
 ```bash
 Final model location: "./save/ResNet2_accuracy-85_checkpoints/model_epoch_50.pt" 
