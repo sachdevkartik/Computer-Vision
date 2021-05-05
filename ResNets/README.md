@@ -210,10 +210,12 @@ Trained ResNets achieved an accuracy of 85.0%. <br>
 Total trainable parameters = 485,952 <br>
 
 - Training from starch:
+
  ![Resnet_80](https://github.com/sachdevkartik/Computer-Vision/blob/master/ResNets/ResNet_80%20acc.png)
 
 
 - Using a saved model and continuing training:
+
  ![Resnet acc 85_graph.png](https://github.com/sachdevkartik/Computer-Vision/blob/master/ResNets/Resnet%20acc%2085_graph.png)
 
 ```bash
