@@ -1,0 +1,14 @@
+import models.Autoencoder
+
+# Autoencoder config
+AutoEncoder.in_features = 28
+AutoEncoder.encoder_layers = [512, 128]
+AutoEncoder.decoder_layers = [128, 512]
+AutoEncoder.encoder_actv_func = ['sigmoid', 'sigmoid']
+AutoEncoder.decoder_actv_func = ['sigmoid', 'sigmoid']
+AutoEncoder.image_size = 28
+AutoEncoder.use_dropout= False
+AutoEncoder.use_batch_norm= False
+AutoEncoder.use_softmax= True
+AutoEncoder.init_method= None
+

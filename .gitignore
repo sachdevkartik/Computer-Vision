@@ -145,3 +145,4 @@ data/
 
 # pycharm files
 .idea/
+runs/
