@@ -1,4 +1,4 @@
-# AutoEncoder
+# AutoEncoders
 
 
 The main script can be run by using:
