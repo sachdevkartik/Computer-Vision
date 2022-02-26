@@ -76,8 +76,6 @@ def GetTrainTransform():
             transforms.Pad((1,1))  # Re-pad to 32 x 32
         ])
 
-    # transform_color = transforms.ColorJitter()
-
     transform_single = transforms.Compose([
         # transform_crop,
         # transforms.GaussianBlur((5,5), sigma=(0.1, 2.0)),
@@ -89,38 +87,74 @@ def GetTrainTransform():
         transforms.RandomCrop(32, (2,2), pad_if_needed=False, padding_mode='constant'), #4,4 to 2,2
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+ 
+    transform_normal = transforms.Compose([
+            transforms.CenterCrop(1000),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
 
-    # transform_rotate = transforms.RandomAffine(30)
-    # transform_translate = transforms.RandomAffine(0, translate=(0.1,0.1))
-    # transform_scale = transforms.Compose([
-    #         transforms.RandomAffine(0, scale=(1.0,1.2)),
-    #         transforms.CenterCrop((32,32))
-    #     ])
-    #
-    # transform_shear = transforms.RandomAffine(0, shear=40)
-    # transform_flip = transforms.RandomHorizontalFlip(p=1.0)
-    # # transform_blur = transforms.GaussianBlur((5,5), sigma=(0.1, 2.0))
-    #
-    # # Add them together to a list
-    # transform_list = [transform_crop, transform_color, transform_gray,
-    #                     transform_rotate, transform_translate,
-    #                     transform_scale, transform_shear,
-    #                     transform_flip]
-    #
-    # transform_prob = 1.0 / len(transform_list)
-    #
-    # # Create another list where we choose to use each of the
-    # #   listed transfroms with probability 'transform_prob'.
-    # random_transform = []
-    # for transform in transform_list:
-    #     random_transform.append( transforms.RandomApply([transform], transform_prob) )
-    #
-    # # Compose the final transform
-    # train_transform = transforms.Compose([
-    #                     transforms.RandomApply(random_transform, 0.9999),
-    #                     transforms.ToTensor(),
-    #                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    #                     ])
+    transform_color = transforms.Compose([
+            transforms.CenterCrop(1000),
+            transforms.ColorJitter(),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+
+    transform_flip = transforms.Compose([
+            transforms.RandomResizedCrop(1000),
+            # transforms.RandomAffine(20),
+            transforms.RandomHorizontalFlip(p=1.0),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+
+    transform_rotate = transforms.Compose([
+            transforms.CenterCrop(1000),
+            transforms.RandomRotation(20),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+
+    transform_blur = transforms.Compose([
+            transforms.CenterCrop(1000),
+            # transforms.GaussianBlur((7,7), sigma=(0.1, 2.0)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+
+#     transform_rotate = transforms.RandomAffine(30)
+    transform_translate = transforms.RandomAffine(0, translate=(0.1,0.1))
+    transform_scale = transforms.Compose([
+            transforms.RandomAffine(0, scale=(1.0,1.2)),
+            transforms.CenterCrop((32,32))
+        ])
+    
+    transform_shear = transforms.RandomAffine(0, shear=40)
+    transform_flip = transforms.RandomHorizontalFlip(p=1.0)
+    transform_gray = transforms.Grayscale(num_output_channels=3)
+    # transform_blur = transforms.GaussianBlur((5,5), sigma=(0.1, 2.0))
+    
+    # Add them together to a list
+    transform_list = [transform_crop, transform_color, transform_gray,
+                        transform_rotate, transform_translate,
+                        transform_scale, transform_shear,
+                        transform_flip]
+    
+    transform_prob = 1.0 / len(transform_list)
+    
+    # Create another list where we choose to use each of the
+    #   listed transfroms with probability 'transform_prob'.
+    random_transform = []
+    for transform in transform_list:
+        random_transform.append( transforms.RandomApply([transform], transform_prob) )
+    
+    # Compose the final transform
+    train_transform = transforms.Compose([
+                        transforms.RandomApply(random_transform, 0.9999),
+                        transforms.ToTensor(),
+                        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+                        ])
     return transform_single
 
 
@@ -176,168 +210,3 @@ class CustomLoader(Dataset):
 
         return img, label
         # return self.datasets[dataset_idx][idx]
-
-
-'''
-transform_normal = transforms.Compose([
-        transforms.CenterCrop(1000),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ])
-
-transform_color = transforms.Compose([
-        transforms.CenterCrop(1000),
-        transforms.ColorJitter(),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ])
-
-transform_flip = transforms.Compose([
-        transforms.RandomResizedCrop(1000),
-        # transforms.RandomAffine(20),
-        transforms.RandomHorizontalFlip(p=1.0),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ])
-
-transform_rotate = transforms.Compose([
-        transforms.CenterCrop(1000),
-        transforms.RandomRotation(20),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ])
-
-transform_blur = transforms.Compose([
-        transforms.CenterCrop(1000),
-        # transforms.GaussianBlur((7,7), sigma=(0.1, 2.0)),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ])
-'''
-# transform_rotate = transforms.Compose([
-#         transforms.RandomResizedCrop(1000),
-#         transforms.RandomAffine(20),
-#         transforms.RandomVerticalFlip(p=0.999),
-#         transforms.ToTensor(),
-#         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-#     ])
-
-# transform_crop = transforms.Compose([
-#         transforms.CenterCrop((30,30)), # Crop 30 x 32
-#         transforms.Pad((1,1))  # Re-pad to 32 x 32
-#     ])
-# transform_color = transforms.ColorJitter()
-# transform_gray = transforms.Grayscale(num_output_channels=3)
-# transform_rotate = transforms.RandomAffine(30)
-# transform_translate = transforms.RandomAffine(0, translate=(0.1,0.1))
-# transform_scale = transforms.Compose([
-#         transforms.RandomAffine(0, scale=(1.0,1.2)), 
-#         transforms.CenterCrop((32,32))  
-#     ])
-# transform_shear = transforms.RandomAffine(0, shear=40)
-# transform_flip = transforms.RandomHorizontalFlip(p=1.0)
-# # transform_blur = transforms.GaussianBlur((5,5), sigma=(0.1, 2.0))
-
-# transform_list = [transform_crop, transform_color, transform_gray,
-#                     transform_rotate, transform_translate, 
-#                     transform_scale, transform_shear, 
-#                     transform_flip]
-
-# transform_prob = 1.0 / len(transform_list)
-
-# # add random apply to each transform
-# random_transform = []
-# for transform in transform_list:
-#     random_transform.append( transforms.RandomApply([transform], transform_prob) )
-# train_transform = transforms.Compose([
-#                     transforms.RandomApply(random_transform, 0.9999),
-#                     transforms.ToTensor(),
-#                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-#                     ])
-
-
-# save='./data/Cifar10'
-
-# train_transform = transforms.Compose([
-#                 transforms.RandomApply([
-#                         # transforms.Compose([
-#                         #     transforms.CenterCrop((30,30)), # Crop 30 x 32
-#                         #     # transforms.Pad((2,2))  # Re-pad to 32 x 32
-#                         #     ]),
-#                         # torch.nn.Sequential(
-#                         #     transforms.CenterCrop(900), # Crop 30 x 32
-#                         #     transforms.Pad((1,1,1,1))  # Re-pad to 32 x 32
-#                         #     ),
-#                         # transforms.GaussianBlur((7,7), sigma=(0.1, 2.0)),
-#                         # transforms.RandomAffine(0, shear=40),  # Shear
-#                         transforms.ColorJitter()
-#                     ], 0.9999),
-#                     transforms.ToTensor(),
-#                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-#                 ])
-
-
-# image_datasets = torchvision.datasets.CIFAR10(root=save, train=True, 
-#                                             download=True, transform=train_transform)
-# train_dataloader =  torch.utils.data.DataLoader(image_datasets, batch_size=32,
-#                                              shuffle=True, num_workers=4)
-# dataiter = iter(train_dataloader)
-# images, labels = dataiter.next()
-# imshow(torchvision.utils.make_grid(images))
-# print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
-
-
-'''
-
-data_transforms = {
-    'train': transforms.Compose([
-        # transforms.RandomResizedCrop(1000),
-        # transforms.RandomAffine(20),
-        transforms.RandomVerticalFlip(p=0.999),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ]),
-    'val': transforms.Compose([
-        transforms.Resize(1024),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ]),
-}
-
-
-image_datasets = {x: torchvision.datasets.CIFAR10(root=save, train=x=='train', 
-                                            download=True, transform=data_transforms[x])
-                for x in ['train','val']}
-
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=32,
-                                             shuffle=True, num_workers=4)
-              for x in ['train', 'val']}
-
-dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
-print(dataset_sizes)
-
-classes = image_datasets['train'].classes
-
-
-
-
-# Example Usage:
-dataiter = iter(dataloaders['train'])
-images, labels = dataiter.next()
-imshow(torchvision.utils.make_grid(images))
-print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
-'''
-
-
-
-# # Load the Cifar10 data
-# transform = transforms.Compose(
-#         [transforms.ToTensor(),
-#          transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-# trainloader, testloader, classes= LoadCifar10(save, transform, ret_sets=False)
-
-# dataiter = iter(trainloader)
-# images, labels = dataiter.next()
-# imshow(torchvision.utils.make_grid(images))
-# print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
